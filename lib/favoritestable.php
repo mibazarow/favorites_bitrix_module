@@ -29,7 +29,7 @@ class FavoritesTable extends Main\Entity\DataManager
 	 *
 	 * @return string
 	 */
-	public static function getTableName()
+	public static function getTableName(): string
 	{
 		return 'mibazarow_favorites';
 	}
@@ -39,7 +39,7 @@ class FavoritesTable extends Main\Entity\DataManager
 	 *
 	 * @return array
 	 */
-	public static function getMap()
+	public static function getMap(): array
 	{
 		return array(
 			'ID' => array(
@@ -86,14 +86,14 @@ class FavoritesTable extends Main\Entity\DataManager
 	 *
 	 * @return array
 	 */
-	public static function validateCookieUserId()
+	public static function validateCookieUserId(): array
 	{
 		return array(
 			new Main\Entity\Validator\Length(null, 64),
 		);
 	}
 
-	public static function onBeforeUpdate(\Bitrix\Main\Entity\Event $event)
+	public static function onBeforeUpdate(\Bitrix\Main\Entity\Event $event): \Bitrix\Main\Entity\EventResult
 	{
 		$result = new \Bitrix\Main\Entity\EventResult;
 		$result->modifyFields(array('DATE_UPDATE' => new \Bitrix\Main\Type\DateTime()));

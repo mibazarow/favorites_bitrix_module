@@ -19,8 +19,8 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 *
 	 * @var string[] Array of fatal errors.
 	 */
-	protected static $cookie_user_id;
-	protected $errorsFatal = array();
+	protected static ?string $cookie_user_id;
+	protected array $errorsFatal = array();
 	/**
 	 * Non-fatal error list. Some non-fatal errors may occur during component execution, so certain functions of the component
 	 * may became defunct. Still, user should stay informed.
@@ -28,47 +28,47 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 *
 	 * @var string[] Array of non-fatal errors.
 	 */
-	protected $errorsNonFatal = array();
+	protected array $errorsNonFatal = array();
 
 	/**
 	 * Contains some valuable info from $_REQUEST
 	 *
 	 * @var object request info
 	 */
-	protected $requestData = array();
+	protected array $requestData = array();
 
 	/**
 	 * Gathered options that are required
 	 *
 	 * @var string[] options
 	 */
-	protected $options = array();
+	protected array $options = array();
 
 	/**
 	 * Variable remains true if there is 'catalog' module installed
 	 *
 	 * @var bool flag
 	 */
-	protected $useCatalog = true;
+	protected bool $useCatalog = true;
 
 	/**
 	 * A value of current date format
 	 *
 	 * @var string format
 	 */
-	private $dateFormat = '';
+	private string $dateFormat = '';
 	
 	/**
 	 * Navstring for orm
 	 */
-	private $navString = "";
+	private string $navString = "";
 	private $navObject;
 	/**
 	 * Filter used when select orders
 	 *
 	 * @var mixed[] filter
 	 */
-	protected $filter = array();
+	protected array $filter = array();
 
 	/**
 	 * Sort field for query
@@ -84,14 +84,14 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 */
 	protected $sortOrder = false;
 
-	protected $dbResult = array();
-	private $dbQueryResult = array();
+	protected array $dbResult = array();
+	private array $dbQueryResult = array();
 
 	protected $currentCache = null;
 
 	protected $application;
 	
-	protected $arElementIds = array();
+	protected array $arElementIds = array();
 	
 	public function __construct($component = null)
 	{
@@ -105,7 +105,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 		Loc::loadMessages(__FILE__);
 	}
 
-	public function onPrepareComponentParams($arParams)
+	public function onPrepareComponentParams(array $arParams): array
 	{
 
 		$arParams["FAVORITES_COUNT"] = intval($arParams["FAVORITES_COUNT"]);
@@ -149,7 +149,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function checkRequiredModules()
+	protected function checkRequiredModules(): void
 	{
 		if (!Loader::includeModule('mibazarow.favorites'))
 			throw new Main\SystemException(Loc::getMessage("mibazarow_FAVORITES_MODULE_NOT_INSTALL"));
@@ -162,7 +162,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Function sets page title, if required
 	 * @return void
 	 */
-	protected function setTitle()
+	protected function setTitle(): void
 	{
 		global $APPLICATION;
 		if ($this->arParams["SET_TITLE"])
@@ -173,7 +173,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Function processes and corrects $_REQUEST. Everyting about $_REQUEST lies here.
 	 * @return void
 	 */
-	protected function processRequest()
+	protected function processRequest(): void
 	{
 		$this->requestData = Context::getCurrent()->getRequest();
 
@@ -187,7 +187,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Creates filter for CSaleOrder::GetList() based on $_REQUEST and other parameters
 	 * @return void
 	 */
-	protected function prepareFilter()
+	protected function prepareFilter(): void
 	{
 		global $USER;
 		global $DB;
@@ -260,7 +260,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Function wraps action list evaluation into try-catch block.
 	 * @return void
 	 */
-	private function performActions()
+	private function performActions(): void
 	{
 		try
 		{
@@ -276,7 +276,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Function perform pre-defined list of actions based on current state of $_REQUEST and parameters.
 	 * @return void
 	 */
-	protected function performActionList()
+	protected function performActionList(): void
 	{
 		// delete favorites
 		$this->performActionDeleteFavor();
@@ -289,7 +289,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function performActionDeleteFavor()
+	protected function performActionDeleteFavor(): void
 	{
 		if (strlen($this->requestData["ID"]) && $this->requestData["DELETE_FAVOR"] == "Y")
 		{
@@ -305,7 +305,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @param int|string $id Order id
 	 * @return int Order id
 	 */
-	private function getRealId($id)
+	private function getRealId($id): int
 	{
 		$res = \mibazarow\Favorites\FavoritesTable::getById($id);
   		$return = 0;
@@ -321,7 +321,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function deleteFavor($id)
+	protected function deleteFavor(int $id): void
 	{
 		global $DB;
 		if ($id)
@@ -343,7 +343,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * The default action in case of success copying order
 	 * @return void
 	 */
-	protected function doAfterDeleteFavor()
+	protected function doAfterDeleteFavor(): void
 	{
 		if($this->requestData['AJAX_CALL_FAVORITES_LIST'] != "Y"){
 			LocalRedirect();
@@ -354,7 +354,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Fetches all required data from database. Everyting that connected with data fetch lies here.
 	 * @return void
 	 */
-	protected function obtainData()
+	protected function obtainData(): void
 	{
 		$this->obtainDataReferences();
 		$this->obtainDataFavoritess();
@@ -365,7 +365,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function obtainDataReferences()
+	protected function obtainDataReferences(): void
 	{
 		if ($this->startCache(array('favor-list')))
 		{
@@ -401,7 +401,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Perform reading main data from database, no cache is used
 	 * @return void
 	 */
-	protected function obtainDataFavoritess()
+	protected function obtainDataFavoritess(): void
 	{
 		$this->navObject = new \Bitrix\Main\UI\PageNavigation("nav-favor");
 		$this->navObject->allowAllRecords(true)
@@ -448,7 +448,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Move data read from database to a specially formatted $arResult
 	 * @return void
 	 */
-	protected function formatResult()
+	protected function formatResult(): void
 	{
 		$arResult = array();
 
@@ -486,7 +486,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @param string[] $conversion contains sublist of keys of $arr, that will be converted
 	 * @return void
 	 */
-	protected function formatDate(&$arr, $conversion)
+	protected function formatDate(array &$arr, array $conversion): void
 	{
 		if (strlen($this->arParams['ACTIVE_DATE_FORMAT']) && self::isNonemptyArray($conversion))
 			foreach ($conversion as $fld)
@@ -500,7 +500,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Move all errors to $arResult, if there were any
 	 * @return void
 	 */
-	protected function formatResultErrors()
+	protected function formatResultErrors(): void
 	{
 		$errors = array();
 		if (!empty($this->errorsFatal))
@@ -522,7 +522,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @param mixed $arr data to check
 	 * @return boolean
 	 */
-	protected static function isNonemptyArray($arr)
+	protected static function isNonemptyArray($arr): bool
 	{
 		return is_array($arr) && !empty($arr);
 	}
@@ -534,7 +534,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * Function checks if cacheing is enabled in component parameters
 	 * @return boolean
 	 */
-	final protected function getCacheNeed()
+	final protected function getCacheNeed(): bool
 	{
 		return	intval($this->arParams['CACHE_TIME']) > 0 &&
 				$this->arParams['CACHE_TYPE'] != 'N' &&
@@ -546,7 +546,7 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * @param mixed[]|string $cacheId An optional addition for cache key
 	 * @return boolean True, if cache content needs to be generated, false if cache is valid and can be read
 	 */
-	final protected function startCache($cacheId = array())
+	final protected function startCache($cacheId = array()): bool
 	{
 		if(!$this->getCacheNeed())
 			return true;
@@ -631,7 +631,8 @@ class mibazarowFavoritesListComponent extends CBitrixComponent
 	 * ��������� �������������� ����������������� ������������
 	 * @return string
 	 */
-	public static function getCookieUserID(){
+	public static function getCookieUserID(): string
+	{
 		global $APPLICATION;
 		if(isset(self::$cookie_user_id)){
 			return self::$cookie_user_id;

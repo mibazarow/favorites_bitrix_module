@@ -9,7 +9,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CIBlockPropertyUserID
 {
-	public static function GetUserTypeDescription()
+	public static function GetUserTypeDescription(): array
 	{
 		return array(
 			"PROPERTY_TYPE" => "S",
@@ -22,7 +22,7 @@ class CIBlockPropertyUserID
 			"GetSettingsHTML" => array("CIBlockPropertyUserID","GetSettingsHTML"),
 		);
 	}
-	public static function GetAdminListViewHTML($arProperty, $value, $strHTMLControlName)
+	public static function GetAdminListViewHTML($arProperty, $value, $strHTMLControlName): string
 	{
 		static $cache = array();
 		$value = intVal($value["VALUE"]);
@@ -39,7 +39,7 @@ class CIBlockPropertyUserID
 		else
 			return "&nbsp;";
 	}
-	public static function GetPropertyFieldHtml($arProperty, $value, $strHTMLControlName)
+	public static function GetPropertyFieldHtml($arProperty, $value, $strHTMLControlName): string
 	{
 		global $USER;
 		$default_value = intVal($value["VALUE"]);
@@ -91,21 +91,21 @@ class CIBlockPropertyUserID
 			ob_end_clean();
 		return  $return;
 	}
-	public static function ConvertToDB($arProperty, $value)
+	public static function ConvertToDB(array $arProperty, array $value): array
 	{
 		$value["VALUE"] = intval($value["VALUE"]);
 		if($value["VALUE"] <= 0)
 			$value["VALUE"] = "";
 		return $value;
 	}
-	public static function ConvertFromDB($arProperty, $value)
+	public static function ConvertFromDB(array $arProperty, array $value): array
 	{
 		$value["VALUE"] = intval($value["VALUE"]);
 		if($value["VALUE"] <= 0)
 			$value["VALUE"] = "";
 		return $value;
 	}
-	public static function GetSettingsHTML($arProperty, $strHTMLControlName, &$arPropertyFields)
+	public static function GetSettingsHTML(array $arProperty, string $strHTMLControlName, array &$arPropertyFields): string
 	{
 		$arPropertyFields = array(
 			"HIDE" => array("WITH_DESCRIPTION"),
@@ -113,7 +113,7 @@ class CIBlockPropertyUserID
 		return '';
 	}
 	
-	public static function FindUserIDNew($tag_name, $tag_value, $user_name="", $form_name = "form1", $select="none", $tag_size = "3", $tag_maxlength="", $button_value = "...", $tag_class="typeinput", $button_class="tablebodybutton", $search_page="/bitrix/admin/user_search.php")
+	public static function FindUserIDNew(string $tag_name, $tag_value, string $user_name = "", string $form_name = "form1", string $select = "none", string $tag_size = "3", string $tag_maxlength = "", string $button_value = "...", string $tag_class = "typeinput", string $button_class = "tablebodybutton", string $search_page = "/bitrix/admin/user_search.php"): string
 	{
 		global $APPLICATION, $USER;
 		$tag_name_x = preg_replace("/([^a-z0-9])/is", "x", $tag_name);
@@ -199,7 +199,7 @@ class CIBlockPropertyUserID
 
 
 class mibazarowFavoritesTools{
-	static public function ShowElementField($name, $property_fields, $values, $bVarsFromForm = false)
+	static public function ShowElementField(string $name, array $property_fields, array $values, bool $bVarsFromForm = false): void
 	{
 		global $bCopy;
 		$index = 0;
@@ -289,7 +289,8 @@ class mibazarowFavoritesTools{
 		echo "\r\n</script>";
 	}
 	
-	static public function ShowUserField($name, $property_fields, $values, $form_name = "favorites_edit_form", $bCopy = false){
+	static public function ShowUserField(string $name, array $property_fields, array $values, string $form_name = "favorites_edit_form", bool $bCopy = false): string
+	{
 		return CIBlockPropertyUserID::GetPropertyFieldHtml(
 			
 				array(
@@ -315,7 +316,7 @@ class mibazarowFavoritesTools{
 		
 	}
 	
-	public static function GetAdminElementEditLink($ELEMENT_ID, $arParams = array(), $strAdd = "")
+	public static function GetAdminElementEditLink(?int $ELEMENT_ID, array $arParams = array(), string $strAdd = ""): string|false
     {
         
 		$url = "mibazarow_favorites_edit.php";

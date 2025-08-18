@@ -27,7 +27,7 @@ Class mibazarow_favorites extends CModule
 		$this->PARTNER_URI = GetMessage("mibazarow.favorites_PARTNER_URI");
 	}
 
-	function InstallDB($arParams = array())
+	function InstallDB(array $arParams = array()): bool
 	{
 		global $DB;
 		RegisterModule(self::MODULE_ID);
@@ -42,7 +42,7 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
-	function UnInstallDB($arParams = array())
+	function UnInstallDB(array $arParams = array()): bool
 	{
 		global $DB;
 		UnRegisterModule(self::MODULE_ID);
@@ -59,14 +59,14 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
-	function InstallEvents()
+	function InstallEvents(): bool
 	{
 		global $DB;
 		//include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".self::MODULE_ID."/install/events.php");
 		return true;
 	}
 
-	function UnInstallEvents()
+	function UnInstallEvents(): bool
 	{
 		$et = new \CEventType;
 		$eventM = new \CEventMessage;
@@ -85,7 +85,7 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
-	function InstallFiles($arParams = array())
+	function InstallFiles(array $arParams = array()): bool
 	{
 		CopyDirFiles(
 			dirname(__FILE__)."/admin", 
@@ -110,7 +110,7 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
-	function UnInstallFiles()
+	function UnInstallFiles(): bool
 	{
 		DeleteDirFiles(dirname(__FILE__)."/admin", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
 		if (is_dir($p = $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/'.self::MODULE_ID.'/install/components'))
@@ -137,14 +137,14 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
-	function DoInstall()
+	function DoInstall(): void
 	{
 		global $APPLICATION;
 		$this->InstallFiles();
 		$this->InstallDB();
 	}
 
-	function DoUninstall()
+	function DoUninstall(): void
 	{
 		global $APPLICATION;
 		$this->UnInstallDB();

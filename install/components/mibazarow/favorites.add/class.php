@@ -10,21 +10,21 @@ Loc::loadMessages(__FILE__);
 
 class mibazarowFavoritesAddComponent extends CBitrixComponent
 {
-	protected $bUseCatalog = null;
+	protected ?bool $bUseCatalog = null;
 	
-	protected static $cookie_user_id;
-	protected $readyForOrderFilter = array(
+	protected static ?string $cookie_user_id;
+	protected array $readyForOrderFilter = array(
 		"CAN_BUY" => "Y", 
 		"DELAY" => "N", 
 		"SUBSCRIBE" => "N"
 	);
-	protected $default_view_field = array(
+	protected array $default_view_field = array(
 		"USER_EMAIL",
 		"USER_NAME",
 		"USER_PHONE",
 		"COMMENT"
 	);
-	protected $default_required_field = array(
+	protected array $default_required_field = array(
 		"USER_EMAIL",
 	);
 	/**
@@ -34,7 +34,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * @var string[] Array of fatal errors.
 	 */
 
-	protected $errorsFatal = array();
+	protected array $errorsFatal = array();
 	/**
 	 * Non-fatal error list. Some non-fatal errors may occur during component execution, so certain functions of the component
 	 * may became defunct. Still, user should stay informed.
@@ -42,21 +42,21 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 *
 	 * @var string[] Array of non-fatal errors.
 	 */
-	protected $errorsNonFatal = array();
-	protected $requestData = array();
+	protected array $errorsNonFatal = array();
+	protected array $requestData = array();
 		 
-	public function onPrepareComponentParams($arParams)
+	public function onPrepareComponentParams(array $arParams): array
 	{
 		return $arParams;
 	}
 	
-	public function onIncludeComponentLang()
+	public function onIncludeComponentLang(): void
 	{
 		Loc::loadMessages(__FILE__);
 	}
 	
 	
-	protected function checkRequiredModules()
+	protected function checkRequiredModules(): void
 	{
 		if (!Loader::includeModule('mibazarow.favorites'))
 			throw new Main\SystemException(Loc::getMessage("mibazarow_FAVORITES_MODULE_NOT_INSTALL"));
@@ -65,7 +65,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 		
 	}
 	
-	protected function processRequest()
+	protected function processRequest(): void
 	{
 		$this->requestData = Context::getCurrent()->getRequest();
 	}
@@ -74,7 +74,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * Move data read from database to a specially formatted $arResult
 	 * @return void
 	 */
-	protected function formatResult()
+	protected function formatResult(): void
 	{
 		global $USER;
 		$arResult = array();
@@ -100,7 +100,8 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	}
 
 	
-	public static function getCookieUserID(){
+	public static function getCookieUserID(): string
+	{
 		global $APPLICATION;
 		if(isset(self::$cookie_user_id)){
 			return self::$cookie_user_id;
@@ -120,7 +121,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * Function wraps action list evaluation into try-catch block.
 	 * @return void
 	 */
-	private function performActions()
+	private function performActions(): void
 	{
 		try
 		{
@@ -136,7 +137,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * Function perform pre-defined list of actions based on current state of $_REQUEST and parameters.
 	 * @return void
 	 */
-	protected function performActionList()
+	protected function performActionList(): void
 	{
 		// add or delete favorites
 		$this->performActionCheckFavorites();
@@ -147,7 +148,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function performActionCheckFavorites()
+	protected function performActionCheckFavorites(): void
 	{
 		if($this->requestData['mibazarow_add_favorites'] == 'Y' && !isset($this->arResult['FATAL_ERROR'])){
 			$this->checkFavoritesElement($this->requestData["mibazarow_FAVORITES_ELEMENT_ID"]);
@@ -156,11 +157,12 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 
 	/**
 
-	 * @param $ElementId
+	 * @param int $ElementId
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	private function checkFavoritesElement($ElementId){
+	private function checkFavoritesElement(int $ElementId): void
+	{
 		global $USER, $DB;
 		if($ElementId <= 0){
 			throw new Main\SystemException(Loc::getMessage('mibazarow_FAVORITES_NOT_FIND_ELEMENT'));
@@ -221,13 +223,13 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * The default action in case of success copying order
 	 * @return void
 	 */
-	protected function doAfterDeleteFavor()
+	protected function doAfterDeleteFavor(): void
 	{
 		if($_REQUEST['AJAX_CALL_FAVORITES_ADD'] != "Y")
 			LocalRedirect();
 	}
 
-	protected function formatResultErrors()
+	protected function formatResultErrors(): void
 	{
 		$errors = array();
 		if (!empty($this->errorsFatal))
@@ -252,7 +254,7 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 			$this->arResult['ERROR_MESSAGE'] = $error['value'];
 	}
 
-	public function executeComponent()
+	public function executeComponent(): void
 	{
 		global $APPLICATION;
 		try{

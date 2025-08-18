@@ -19,8 +19,8 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 *
 	 * @var string[] Array of fatal errors.
 	 */
-	protected static $cookie_user_id;
-	protected $errorsFatal = array();
+	protected static ?string $cookie_user_id;
+	protected array $errorsFatal = array();
 	/**
 	 * Non-fatal error list. Some non-fatal errors may occur during component execution, so certain functions of the component
 	 * may became defunct. Still, user should stay informed.
@@ -28,47 +28,47 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 *
 	 * @var string[] Array of non-fatal errors.
 	 */
-	protected $errorsNonFatal = array();
+	protected array $errorsNonFatal = array();
 
 	/**
 	 * Contains some valuable info from $_REQUEST
 	 *
 	 * @var object request info
 	 */
-	protected $requestData = array();
+	protected array $requestData = array();
 
 	/**
 	 * Gathered options that are required
 	 *
 	 * @var string[] options
 	 */
-	protected $options = array();
+	protected array $options = array();
 
 	/**
 	 * Variable remains true if there is 'catalog' module installed
 	 *
 	 * @var bool flag
 	 */
-	protected $useCatalog = true;
+	protected bool $useCatalog = true;
 
 	/**
 	 * A value of current date format
 	 *
 	 * @var string format
 	 */
-	private $dateFormat = '';
+	private string $dateFormat = '';
 	
 	/**
 	 * Navstring for orm
 	 */
-	private $navString = "";
+	private string $navString = "";
 	private $navObject;
 	/**
 	 * Filter used when select orders
 	 *
 	 * @var mixed[] filter
 	 */
-	protected $filter = array();
+	protected array $filter = array();
 
 	/**
 	 * Sort field for query
@@ -84,8 +84,8 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 */
 	protected $sortOrder = false;
 
-	protected $dbResult = array();
-	private $dbQueryResult = array();
+	protected array $dbResult = array();
+	private array $dbQueryResult = array();
 
 	protected $currentCache = null;
 
@@ -103,7 +103,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 		Loc::loadMessages(__FILE__);
 	}
 
-	public function onPrepareComponentParams($arParams)
+	public function onPrepareComponentParams(array $arParams): array
 	{
 
 		$arParams["FAVORITES_COUNT"] = intval($arParams["FAVORITES_COUNT"]);
@@ -147,7 +147,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function checkRequiredModules()
+	protected function checkRequiredModules(): void
 	{
 		if (!Loader::includeModule('mibazarow.favorites'))
 			throw new Main\SystemException(Loc::getMessage("mibazarow_FAVORITES_MODULE_NOT_INSTALL"));
@@ -160,7 +160,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Function processes and corrects $_REQUEST. Everyting about $_REQUEST lies here.
 	 * @return void
 	 */
-	protected function processRequest()
+	protected function processRequest(): void
 	{
 		$this->requestData = Context::getCurrent()->getRequest();
 
@@ -171,7 +171,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Creates filter for CSaleOrder::GetList() based on $_REQUEST and other parameters
 	 * @return void
 	 */
-	protected function prepareFilter()
+	protected function prepareFilter(): void
 	{
 		global $USER;
 		global $DB;
@@ -244,7 +244,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Fetches all required data from database. Everyting that connected with data fetch lies here.
 	 * @return void
 	 */
-	protected function obtainData()
+	protected function obtainData(): void
 	{
 		$this->obtainDataReferences();
 		$this->obtainDataFavoritess();
@@ -255,7 +255,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	protected function obtainDataReferences()
+	protected function obtainDataReferences(): void
 	{
 		if ($this->startCache(array('favor-line')))
 		{
@@ -291,7 +291,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Perform reading main data from database, no cache is used
 	 * @return void
 	 */
-	protected function obtainDataFavoritess()
+	protected function obtainDataFavoritess(): void
 	{
 
 		$this->dbQueryResult['FAVORITES'] = \mibazarow\Favorites\FavoritesTable::getList(
@@ -307,7 +307,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Move data read from database to a specially formatted $arResult
 	 * @return void
 	 */
-	protected function formatResult()
+	protected function formatResult(): void
 	{
 		$arResult = array();
 
@@ -322,7 +322,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Move all errors to $arResult, if there were any
 	 * @return void
 	 */
-	protected function formatResultErrors()
+	protected function formatResultErrors(): void
 	{
 		$errors = array();
 		if (!empty($this->errorsFatal))
@@ -346,7 +346,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Function checks if cacheing is enabled in component parameters
 	 * @return boolean
 	 */
-	final protected function getCacheNeed()
+	final protected function getCacheNeed(): bool
 	{
 		return	intval($this->arParams['CACHE_TIME']) > 0 &&
 				$this->arParams['CACHE_TYPE'] != 'N' &&
@@ -358,7 +358,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * @param mixed[]|string $cacheId An optional addition for cache key
 	 * @return boolean True, if cache content needs to be generated, false if cache is valid and can be read
 	 */
-	final protected function startCache($cacheId = array())
+	final protected function startCache($cacheId = array()): bool
 	{
 		if(!$this->getCacheNeed())
 			return true;
@@ -374,7 +374,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * @param mixed[] $data Data to be stored in the cache
 	 * @return void
 	 */
-	final protected function endCache($data = false)
+	final protected function endCache($data = false): void
 	{
 		if(!$this->getCacheNeed())
 			return;
@@ -391,7 +391,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * @throws Main\SystemException
 	 * @return void
 	 */
-	final protected function abortCache()
+	final protected function abortCache(): void
 	{
 		if(!$this->getCacheNeed())
 			return;
@@ -423,7 +423,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * Function leaves the ability to modify cache key in future.
 	 * @return string Cache key to be used in CPHPCache()
 	 */
-	final protected function getCacheKey($cacheId = array())
+	final protected function getCacheKey($cacheId = array()): string
 	{
 		if(!is_array($cacheId))
 			$cacheId = array((string) $cacheId);
@@ -443,7 +443,8 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 * ��������� �������������� ����������������� ������������
 	 * @return string
 	 */
-	public static function getCookieUserID(){
+	public static function getCookieUserID(): string
+	{
 		global $APPLICATION;
 		if(isset(self::$cookie_user_id)){
 			return self::$cookie_user_id;
@@ -459,7 +460,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 
 	}
 
-	public function executeComponent()
+	public function executeComponent(): void
 	{
 		try
 		{
