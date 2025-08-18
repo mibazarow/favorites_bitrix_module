@@ -1,0 +1,21 @@
+.mibazarow_favorites_table {
+  border-collapse: collapse;
+  border: 1px solid;
+}
+.mibazarow_favorites_table th, .mibazarow_favorites_table td {
+  border: 1px solid;
+  padding: 5px;
+}
+.mibazarow_favorites_table td:empty {
+  background: #ccc;
+}
+.mibazarow_favorites_table tr:nth-child(2n+1){
+   background:white;
+}
+
+.mibazarow_favorites_table tr:nth-child(2n){
+   background:#ebf4f8;
+}
+.mibazarow_favorites_table th {
+  background: #f5f8ec;
+}

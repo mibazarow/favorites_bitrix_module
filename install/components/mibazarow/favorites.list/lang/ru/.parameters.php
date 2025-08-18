@@ -1,0 +1,37 @@
+<?
+$MESS["IBLOCK_CACHE_FILTER"] = "Кешировать при установленном фильтре";
+$MESS["mibazarow_FAVORITES_SORT_ASC"] = "По возрастанию";
+$MESS["mibazarow_FAVORITES_SORT_DESC"] = "По убыванию";
+$MESS["mibazarow_FAVORITES_SORT_ID"] = "ID";
+$MESS["mibazarow_FAVORITES_SORT_DATE_INSERT"] = "Дата создания";
+$MESS["mibazarow_FAVORITES_LIST_DESC_FSORT"] = "Сортировка";
+$MESS["mibazarow_FAVORITES_LIST_DESC_FTSAMP"] = "Дата последнего изменения";
+$MESS["mibazarow_FAVORITES_LIST_DESC_IBORD"] = "Поле для сортировки избранных товаров";
+$MESS["mibazarow_FAVORITES_LIST_DESC_IBBY"] = "Направление для сортировки избранных товаров";
+$MESS["mibazarow_FAVORITES_LIST_DESC_LIST_ID"] = "Код информационного блока";
+$MESS["mibazarow_FAVORITES_LIST_DESC_LIST_TYPE"] = "Тип информационного блока (используется только для проверки)";
+$MESS["mibazarow_FAVORITES_LIST_FAVORITES_COUNT"] = "Количество избранных товаров на странице";
+$MESS["mibazarow_FAVORITES_LIST_DESC_DETAIL_PAGE_URL"] = "URL страницы детального просмотра (по умолчанию - из настроек инфоблока)";
+$MESS["mibazarow_FAVORITES_LIST_DESC_INCLUDE_IBLOCK_INTO_CHAIN"] = "Включать инфоблок в цепочку навигации";
+$MESS["mibazarow_FAVORITES_LIST_PROPERTY"] = "Свойства";
+$MESS["mibazarow_FAVORITES_LIST_FILTER"] = "Фильтр";
+$MESS["IBLOCK_FIELD"] = "Поля";
+$MESS["mibazarow_FAVORITES_LIST_DESC_ACTIVE_DATE_FORMAT"] = "Формат показа даты";
+$MESS["mibazarow_FAVORITES_LIST_DESC_PAGER_NEWS"] = "Заявки";
+$MESS["mibazarow_FAVORITES_LIST_DESC_PREVIEW_TRUNCATE_LEN"] = "Максимальная длина анонса для вывода (только для типа текст)";
+$MESS["mibazarow_FAVORITES_LIST_DESC_HIDE_LINK_WHEN_NO_DETAIL"] = "Скрывать ссылку, если нет детального описания";
+$MESS["IBLOCK_SECTION_ID"] = "ID раздела";
+$MESS["IBLOCK_SECTION_CODE"] = "Код раздела";
+$MESS["mibazarow_FAVORITES_LIST_DESC_ADD_SECTIONS_CHAIN"] = "Включать раздел в цепочку навигации";
+$MESS["mibazarow_FAVORITES_LIST_DESC_CHECK_DATES"] = "Показывать только активные на данный момент элементы";
+$MESS["CP_BNL_CACHE_GROUPS"] = "Учитывать права доступа";
+$MESS["CP_BNL_INCLUDE_SUBSECTIONS"] = "Показывать элементы подразделов раздела";
+$MESS["CP_BNL_SET_BROWSER_TITLE"] = "Устанавливать заголовок окна браузера";
+$MESS["CP_BNL_SET_META_KEYWORDS"] = "Устанавливать ключевые слова страницы";
+$MESS["CP_BNL_SET_META_DESCRIPTION"] = "Устанавливать описание страницы";
+$MESS["CP_BNL_SET_LAST_MODIFIED"] = "Устанавливать в заголовках ответа время модификации страницы";
+$MESS["mibazarow_FAVORITES_LIST_DISPLAY_TOP_PAGER"] = "Выводить над списком";
+$MESS["mibazarow_FAVORITES_LIST_DISPLAY_BOTTOM_PAGER"] = "Выводить под списком";
+$MESS['mibazarow_FAVORITES_LIST_NAV_TEMPLATE'] = "Имя шаблона для постраничной навигации";
+$MESS['CATALOG_SECTION_GROUP'] = "Параметры для catalog.section";
+?>
