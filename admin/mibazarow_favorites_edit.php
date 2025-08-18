@@ -176,9 +176,9 @@ foreach($arMap as $code => $field):
 				case 'integer':
 				case 'string':
 					if($code == 'ELEMENT_ID'){
-						\mibazarow\Favorites\Tools\Favorites::ShowElementField($code,$field,array($favorites_element[$code]));
+						\mibazarow\Favorites\Tools\Favorites::ShowElementField($code,$field,array($favorites_element[$code]), false);
 					}elseif($code == 'USER_ID'){
-						print \mibazarow\Favorites\Tools\Favorites::ShowUserField($code,$field,array("VALUE" => $favorites_element[$code]));
+						print \mibazarow\Favorites\Tools\Favorites::ShowUserField($code,$field,array("VALUE" => $favorites_element[$code]), false);
 					}else{
 						?><input type="text" name="<?=$code?>" value="<?=$favorites_element[$code]?>"/>	<?
 					}
