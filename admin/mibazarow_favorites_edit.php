@@ -2,7 +2,7 @@
 use Bitrix\Main\Loader;
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mibazarow.favorites/admin/tools.php");
+// require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mibazarow.favorites/admin/tools.php");
 
 Loader::includeModule('mibazarow.favorites');
 IncludeModuleLangFile(__FILE__);
@@ -176,9 +176,9 @@ foreach($arMap as $code => $field):
 				case 'integer':
 				case 'string':
 					if($code == 'ELEMENT_ID'){
-						\mibazarow\Favorites\mibazarowFavoritesTools::ShowElementField($code,$field,array($favorites_element[$code]));
+						\mibazarow\Favorites\Tools\Favorites::ShowElementField($code,$field,array($favorites_element[$code]));
 					}elseif($code == 'USER_ID'){
-						print \mibazarow\Favorites\mibazarowFavoritesTools::ShowUserField($code,$field,array("VALUE" => $favorites_element[$code]));
+						print \mibazarow\Favorites\Tools\Favorites::ShowUserField($code,$field,array("VALUE" => $favorites_element[$code]));
 					}else{
 						?><input type="text" name="<?=$code?>" value="<?=$favorites_element[$code]?>"/>	<?
 					}

@@ -209,7 +209,7 @@ while ($arRes = $myData->GetNext())
 	if (in_array("ACTIVE", $visibleHeaderColumns)){
 		$row->AddViewField("ACTIVE", $arRes['ACTIVE'] == 'Y'?GetMessage("mibazarow_FAVORITES_YES"):GetMessage("mibazarow_FAVORITES_NO"));		
 	}
-	$el_edit_url = htmlspecialcharsbx(\mibazarow\Favorites\mibazarowFavoritesTools::GetAdminElementEditLink($arRes["ID"]));
+	$el_edit_url = htmlspecialcharsbx(\mibazarow\Favorites\Tools\Favorites::GetAdminElementEditLink($arRes["ID"]));
 	$arActions = array();
 	$arActions[] = array(
 		"ICON" => "edit",
