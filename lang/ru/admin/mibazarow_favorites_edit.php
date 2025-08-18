@@ -1,4 +1,4 @@
-<?
+<?php
 $MESS["mibazarow_FAVORITES_EDIT_TITLE"] = "Редактирование избранного товара #";
 $MESS["mibazarow_FAVORITES_ADD_TITLE"] = "Добавление избранного товара #";
 $MESS["mibazarow_FAVORITES_LIST"] = "Список избранный товаров";

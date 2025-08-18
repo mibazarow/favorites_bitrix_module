@@ -13,3 +13,4 @@ $MESS['mibazarow_FAVORITES_NO'] = "Нет";
 $MESS["mibazarow_FAVORITES_SAVE_ERROR"] = "Ошибка сохранения!";
 $MESS["mibazarow_FAVORITES_NO_ELEMENT"] = "Не найден элемент";
 $MESS["mibazarow_FAVORITES_DELETE_ERROR"] = "Ошибка удаления!";
+$MESS["mibazarow_FAVORITES_CONFIRM"] = "Подтвердить";

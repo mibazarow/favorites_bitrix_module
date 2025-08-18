@@ -34,4 +34,3 @@ $MESS["mibazarow_FAVORITES_LIST_DISPLAY_TOP_PAGER"] = "Выводить над �
 $MESS["mibazarow_FAVORITES_LIST_DISPLAY_BOTTOM_PAGER"] = "Выводить под списком";
 $MESS['mibazarow_FAVORITES_LIST_NAV_TEMPLATE'] = "Имя шаблона для постраничной навигации";
 $MESS['CATALOG_SECTION_GROUP'] = "Параметры для catalog.section";
-?>

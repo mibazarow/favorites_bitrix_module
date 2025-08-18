@@ -151,4 +151,3 @@ Class mibazarow_favorites extends CModule
 		$this->UnInstallFiles();
 	}
 }
-?>

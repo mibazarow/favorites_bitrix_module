@@ -16,5 +16,3 @@ $arComponentDescription = array(
 		),
 	),
 );
-
-?>
