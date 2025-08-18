@@ -1,1 +1,1 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mibazarow.favorites/admin/mibazarow_favorites_list.php");?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/local/modules/mibazarow.favorites/admin/mibazarow_favorites_list.php");?>

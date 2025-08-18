@@ -1,7 +1,7 @@
 <?
 use Bitrix\Main\Loader;
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mibazarow.favorites/admin/tools.php");
+use mibazarow\Favorites\Tools\Favorites;
 
 Loader::includeModule('mibazarow.favorites');
 
