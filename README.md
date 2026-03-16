@@ -390,13 +390,7 @@ class CustomFavorites extends BaseFavorites
 
 ## Техническая поддержка
 
-- **Email:** support@mibazarow.ru
-- **Сайт:** http://mibazarow.ru
-- **Документация:** [Ссылка на документацию]
-
-## Лицензия
-
-Модуль распространяется по лицензии MIT. Подробности в файле LICENSE.
+- **Сайт:** http://bazarow.ru
 
 ## Changelog
 
