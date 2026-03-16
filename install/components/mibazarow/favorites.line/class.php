@@ -35,7 +35,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 	 *
 	 * @var object request info
 	 */
-	protected array $requestData = array();
+	protected $requestData = array();
 
 	/**
 	 * Gathered options that are required
@@ -103,7 +103,7 @@ class mibazarowFavoritesLineComponent extends CBitrixComponent
 		Loc::loadMessages(__FILE__);
 	}
 
-	public function onPrepareComponentParams(array $arParams): array
+	public function onPrepareComponentParams($arParams)
 	{
 
 		$arParams["FAVORITES_COUNT"] = intval($arParams["FAVORITES_COUNT"]);

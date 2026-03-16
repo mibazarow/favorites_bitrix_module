@@ -43,9 +43,9 @@ class mibazarowFavoritesAddComponent extends CBitrixComponent
 	 * @var string[] Array of non-fatal errors.
 	 */
 	protected array $errorsNonFatal = array();
-	protected array $requestData = array();
-		 
-	public function onPrepareComponentParams(array $arParams): array
+	protected $requestData = array();
+
+	public function onPrepareComponentParams($arParams)
 	{
 		return $arParams;
 	}
