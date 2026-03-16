@@ -59,6 +59,27 @@ Class mibazarow_favorites extends CModule
 		return true;
 	}
 
+	function InstallAgents(): bool
+	{
+		\CAgent::AddAgent(
+			'\mibazarow\Favorites\Agents::cleanDeletedElements();',
+			self::MODULE_ID,
+			'N',        // не критичный
+			86400,      // раз в сутки (секунды)
+			'',         // дата первого запуска — сразу
+			'Y',        // активен
+			'',         // следующий запуск — сразу после регистрации
+			30          // сортировка
+		);
+		return true;
+	}
+
+	function UnInstallAgents(): bool
+	{
+		\CAgent::RemoveModuleAgents(self::MODULE_ID);
+		return true;
+	}
+
 	function InstallEvents(): bool
 	{
 		global $DB;
@@ -88,13 +109,12 @@ Class mibazarow_favorites extends CModule
 	function InstallFiles(array $arParams = array()): bool
 	{
 		CopyDirFiles(
-			dirname(__FILE__)."/admin", 
-			$_SERVER["DOCUMENT_ROOT"]."/bitrix/admin", 
+			dirname(__FILE__)."/admin",
+			$_SERVER["DOCUMENT_ROOT"]."/bitrix/admin",
 			true
 		);
-		if (is_dir(
-			$p = $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/'.self::MODULE_ID.'/install/components')
-			)
+		$p = dirname(__FILE__).'/components';
+		if (is_dir($p))
 		{
 			if ($dir = opendir($p))
 			{
@@ -113,7 +133,8 @@ Class mibazarow_favorites extends CModule
 	function UnInstallFiles(): bool
 	{
 		DeleteDirFiles(dirname(__FILE__)."/admin", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
-		if (is_dir($p = $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/'.self::MODULE_ID.'/install/components'))
+		$p = dirname(__FILE__).'/components';
+		if (is_dir($p))
 		{
 			if ($dir = opendir($p))
 			{
@@ -142,11 +163,13 @@ Class mibazarow_favorites extends CModule
 		global $APPLICATION;
 		$this->InstallFiles();
 		$this->InstallDB();
+		$this->InstallAgents();
 	}
 
 	function DoUninstall(): void
 	{
 		global $APPLICATION;
+		$this->UnInstallAgents();
 		$this->UnInstallDB();
 		$this->UnInstallFiles();
 	}
